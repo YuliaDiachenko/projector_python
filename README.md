@@ -5,3 +5,6 @@ Program outputs which cats have hats and calculates hats with any amount of roun
 
 #Lecture9
 Work with modules and virtual environment
+
+#Lecture9
+Work with .txt and .csv files
