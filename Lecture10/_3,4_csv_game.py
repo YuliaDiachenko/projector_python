@@ -2,24 +2,17 @@ import csv
 import random
 
 players = [
-    ['Luke', 0],
-    ['Kate', 0],
-    ['Mark', 0],
-    ['Mary', 0],
-    ['Josh', 0]
+    'Luke', 'Kate','Mark', 'Mary', 'Josh'
 ]
-
-for level in range(100):
-    for number, player in enumerate(players):
-        players[number][1] = random.randint(0,1000)
 
 
 with open('game_simulator.csv', mode='w') as file:
     fieldnames = ["Player's name", "Score"]
     writer = csv.DictWriter(file, fieldnames=fieldnames)
     writer.writeheader()
-
-    for name, score in players:
+    
+    for name in players:
+        score = [random.randint(0,1000) for level in range(100)]
         writer.writerow({"Player's name": name, "Score": score})
 
 
@@ -30,14 +23,8 @@ with open('game_simulator.csv', mode='r') as inputfile, open('high_scores.csv', 
 
     reader = csv.DictReader(inputfile)
     reader_dict = [row for row in reader]
+    
+    for row in reader_dict:
+        max_score = (max(list(map(int, (row["Score"].strip("[]").split(", "))))))
+        writer.writerow({"Player's name": row["Player's name"], "High score": max_score})
 
-    list_score = [int(row['Score']) for row in reader_dict]
-    list_score.sort(reverse = True)
-    
-    for points in list_score:
-        for row in reader_dict:
-            if points == int(row['Score']):
-                writer.writerow({"Player's name": row["Player's name"], "High score": row["Score"]})
-                break
-    
-    
